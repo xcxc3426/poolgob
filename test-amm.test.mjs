@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {quoteExit,quoteTicket,scaleLiquidity,exitSurface} from './core-amm.mjs';
+const pool={model:'cpmm-demo-v1',x:1000,y:100,feeBps:30};
+test('ideal zero-fee swap matches constant-product arithmetic',()=>{const q=quoteExit({...pool,feeBps:0},100);assert.ok(Math.abs(q.outputSOL-100/11)<1e-12);assert.ok(Math.abs(q.postX*q.postY-pool.x*pool.y)<1e-9);});
+test('input fee is charged once and kept in token reserve',()=>{const q=quoteExit(pool,100);assert.equal(q.feeTokens,.3);assert.ok(Math.abs(q.outputSOL-9.066108938801491)<1e-12);assert.equal(q.postX,1100);assert.ok(q.postX*q.postY>pool.x*pool.y);});
+test('zero input returns zero output and no shortfall',()=>{const q=quoteExit(pool,0);assert.equal(q.outputSOL,0);assert.equal(q.allInShortfall,0);assert.equal(q.curveImpact,0);});
+test('larger tickets have more all-in friction',()=>assert.ok(quoteTicket(pool,20).allInShortfall>quoteTicket(pool,2).allInShortfall));
+test('less proportional liquidity preserves mid but worsens the exit',()=>{const thin=scaleLiquidity(pool,.25);assert.equal(thin.y/thin.x,pool.y/pool.x);assert.ok(quoteTicket(thin,8).outputSOL<quoteTicket(pool,8).outputSOL);});
+test('surface holds the token position fixed across each row',()=>{const matrix=exitSurface(pool);for(const row of matrix)assert.ok(row.cells.every(q=>Math.abs(q.tokenAmount-row.cells[0].tokenAmount)<1e-10));});
+test('quote computation never mutates the source snapshot',()=>{const before=structuredClone(pool);quoteTicket(pool,8);scaleLiquidity(pool,.5);assert.deepEqual(pool,before);});
+test('unsupported models and invalid amounts fail explicitly',()=>{for(const bad of [{...pool,model:'clmm'},{...pool,x:0},{...pool,y:NaN},{...pool,feeBps:2000}])assert.throws(()=>quoteExit(bad,1));for(const amount of [-1,Infinity,NaN])assert.throws(()=>quoteExit(pool,amount));assert.throws(()=>scaleLiquidity(pool,0));});

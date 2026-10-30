@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Poolgob prepared case",
+  "type": "object",
+  "required": ["schema", "version", "origin", "state", "poolId", "symbol", "requestedTick", "observedTick", "ticketSOL", "model", "quote", "findings", "holderScope", "sourceIds", "snapshot", "operator", "scope"],
+  "properties": {
+    "schema": {"const": "poolgob/case/1"}, "version": {"const": "0.1.0"}, "origin": {"const": "synthetic-fixture"}, "state": {"const": "prepared"},
+    "poolId": {"type": "string"}, "symbol": {"type": "string"}, "requestedTick": {"type": "integer", "minimum": 0, "maximum": 39}, "observedTick": {"type": "integer", "minimum": 0, "maximum": 39},
+    "ticketSOL": {"type": "number", "exclusiveMinimum": 0, "maximum": 256}, "model": {"const": "cpmm-demo-v1"}, "quote": {"type": ["object", "null"]},
+    "findings": {"type": "array", "items": {"type": "object", "required": ["id", "level", "reason", "value", "unit", "sourceRefs"], "properties": {"id": {"type": "string"}, "level": {"enum": ["observe", "review"]}, "reason": {"type": "string"}, "value": {"type": "number"}, "unit": {"type": "string"}, "sourceRefs": {"type": "array", "items": {"type": "string"}}}}},
+    "holderScope": {"const": "modeled eligible wallet cohort"}, "sourceIds": {"type": "array", "items": {"type": "string"}},
+    "snapshot": {"$ref": "dataset.schema.json#/$defs/snapshot"}, "operator": {"type": "object"}, "scope": {"type": "string"}
+  }
+}

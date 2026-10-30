@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#12171d">
+  <meta name="description" content="Poolgob: a quiet observer of small Solana pools, with replayable liquidity evidence and a Grok Bot operator pack.">
+  <title>Poolgob / Liquidity leaves a trail</title>
+  <link rel="icon" href="poolgob.png">
+  <link rel="stylesheet" href="view-style.css">
+</head>
+<body>
+  <header><a href="#">Poolgob<span> / observation desk</span></a><p>Local replay · Synthetic source data · v0.1.0</p></header>
+  <main>
+    <section class="controls" aria-label="Replay controls">
+      <label>Pool<select id="pool"></select></label>
+      <label>Nominal ticket / SOL<input id="ticket" type="number" min="0.01" max="256" step="0.25" value="8"></label>
+      <label class="clock">Observation <output id="tick-label">32</output><input id="tick" type="range" min="0" max="39" value="32"></label>
+      <button id="apply">Update study</button>
+    </section>
+    <nav id="views" aria-label="Observation views"></nav>
+    <canvas id="screen" width="1600" height="1040" tabindex="0" role="img" aria-describedby="caption"></canvas>
+    <section class="below">
+      <div><h1 id="view-title">Poolgob</h1><p id="caption"></p><p id="summary"></p><p id="status" role="status" aria-live="polite">Loading the replay...</p></div>
+      <div class="actions"><button id="save">Save PNG</button><button id="case">Case JSON</button><button id="receipt">Receipt JSON</button><button id="csv">Watchlist CSV</button></div>
+    </section>
+  </main>
+  <footer>One persistent research file. Exact source boundaries. Grok Bot role instructions: GROKBOT-OPERATOR.md.</footer>
+  <script type="module" src="view-app.mjs"></script>
+</body>
+</html>

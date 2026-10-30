@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Poolgob local evidence receipt",
+  "type": "object",
+  "required": ["schema", "algorithm", "encoding", "digest", "packet", "attestation"],
+  "properties": {
+    "schema": {"const": "poolgob/receipt/1"}, "algorithm": {"const": "SHA-256"},
+    "encoding": {"const": "UTF-8 JSON.stringify(packet), no trailing newline"},
+    "digest": {"anyOf": [{"type": "string", "pattern": "^[0-9a-f]{64}$"}, {"type": "null"}]},
+    "packet": {"$ref": "case.schema.json"}, "attestation": {"const": "local content digest; unsigned; not a chain anchor"}
+  },
+  "$comment": "A null digest means Web Crypto is unavailable in the current environment; it is not a verified receipt."
+}

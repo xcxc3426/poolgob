@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {readFile} from 'node:fs/promises';
+import {caseBytes,caseDigest,makeReceipt} from './core-receipt.mjs';
+import {generateDataset} from './core-fixture.mjs';
+import {analyzePool,casePacket} from './core-analysis.mjs';
+const packet=casePacket(analyzePool(generateDataset().pools[0]));
+test('Web Crypto and Node SHA-256 agree on the exact case bytes',async()=>assert.equal(await caseDigest(packet),createHash('sha256').update(caseBytes(packet),'utf8').digest('hex')));
+test('changing a case parameter changes its digest',async()=>{const changed={...packet,ticketSOL:16};assert.notEqual(await caseDigest(packet),await caseDigest(changed));});
+test('the committed receipt matches the generated case',async()=>{const saved=JSON.parse(await readFile(new URL('./plink-receipt.json',import.meta.url),'utf8'));assert.deepEqual(saved,await makeReceipt(packet));assert.match(saved.attestation,/unsigned/);});

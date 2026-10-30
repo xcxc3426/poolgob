@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Poolgob synthetic dataset",
+  "type": "object",
+  "required": ["schema", "version", "origin", "seed", "tickMinutes", "horizon", "defaultTick", "defaultPool", "defaultTicketSOL", "pools"],
+  "properties": {
+    "schema": {"const": "poolgob/dataset/1"}, "version": {"const": "0.1.0"}, "origin": {"const": "synthetic-fixture"},
+    "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295}, "tickMinutes": {"const": 5}, "horizon": {"const": 40},
+    "defaultTick": {"type": "integer", "minimum": 0, "maximum": 39}, "defaultPool": {"type": "string"}, "defaultTicketSOL": {"type": "number", "exclusiveMinimum": 0, "maximum": 256},
+    "pools": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "symbol", "quote", "label", "history"], "properties": {"id": {"type": "string"}, "symbol": {"type": "string"}, "quote": {"const": "SOL"}, "label": {"type": "string"}, "history": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/snapshot"}}}}}
+  },
+  "$defs": {
+    "snapshot": {"type": "object", "required": ["id", "tick", "time", "model", "x", "y", "feeBps", "lpIndex", "volumeSOL", "events", "holders", "source"], "properties": {
+      "id": {"type": "string"}, "tick": {"type": "integer", "minimum": 0, "maximum": 39}, "time": {"type": "string"}, "model": {"const": "cpmm-demo-v1"},
+      "x": {"type": "number", "exclusiveMinimum": 0}, "y": {"type": "number", "exclusiveMinimum": 0}, "feeBps": {"type": "number", "minimum": 0, "maximum": 1000},
+      "lpIndex": {"type": "number", "exclusiveMinimum": 0}, "volumeSOL": {"type": "number", "minimum": 0}, "source": {"const": "procedural-fixture"},
+      "events": {"type": "array", "items": {"type": "object", "required": ["type", "sol", "note"], "properties": {"type": {"enum": ["lp-remove", "lp-add", "swap-buy", "swap-sell"]}, "sol": {"type": "number", "minimum": 0}, "fraction": {"type": "number", "minimum": 0, "maximum": 1}, "note": {"type": "string"}}}},
+      "holders": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["alias", "kind", "amount"], "properties": {"alias": {"type": "string"}, "kind": {"enum": ["wallet", "pool-vault", "custody", "unknown"]}, "amount": {"type": "number", "minimum": 0}}}}
+    }}
+  },
+  "$comment": "The runtime additionally checks pool-ID uniqueness and strictly increasing observation ticks."
+}

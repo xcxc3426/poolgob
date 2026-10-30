@@ -1,0 +1,276 @@
+{
+  "schema": "poolgob/receipt/1",
+  "algorithm": "SHA-256",
+  "encoding": "UTF-8 JSON.stringify(packet), no trailing newline",
+  "digest": "a5065d21534e9544607d4b722938cdf326e3fed5d7f451693013d9ee5d686828",
+  "packet": {
+    "schema": "poolgob/case/1",
+    "version": "0.1.0",
+    "origin": "synthetic-fixture",
+    "state": "prepared",
+    "poolId": "sim-plink-sol",
+    "symbol": "PLINK",
+    "requestedTick": 32,
+    "observedTick": 32,
+    "ticketSOL": 8,
+    "model": "cpmm-demo-v1",
+    "quote": {
+      "tokenAmount": 333571.66646000353,
+      "feeTokens": 1000.7149993800106,
+      "mid": 0.000023982852275492136,
+      "nominalSOL": 7.999999999999999,
+      "outputSOL": 7.630428494375642,
+      "curveImpact": 0.04332641745541093,
+      "allInShortfall": 0.04619643820304464,
+      "averagePrice": 0.000022874929922414613,
+      "postX": 7676940.037766756,
+      "postY": 168.48449035919546
+    },
+    "findings": [
+      {
+        "id": "lp-removal",
+        "level": "review",
+        "reason": "Tagged liquidity removals exceed the lookback threshold.",
+        "value": 0.41999999999999993,
+        "unit": "fraction",
+        "sourceRefs": [
+          "plink-026"
+        ]
+      },
+      {
+        "id": "cohort-concentration",
+        "level": "observe",
+        "reason": "Top ten wallets hold a large share of the modeled eligible cohort.",
+        "value": 0.6803430987520476,
+        "unit": "fraction",
+        "sourceRefs": [
+          "plink-032"
+        ]
+      }
+    ],
+    "holderScope": "modeled eligible wallet cohort",
+    "sourceIds": [
+      "plink-000",
+      "plink-001",
+      "plink-002",
+      "plink-003",
+      "plink-004",
+      "plink-005",
+      "plink-006",
+      "plink-007",
+      "plink-008",
+      "plink-009",
+      "plink-010",
+      "plink-011",
+      "plink-012",
+      "plink-013",
+      "plink-014",
+      "plink-015",
+      "plink-016",
+      "plink-017",
+      "plink-018",
+      "plink-019",
+      "plink-020",
+      "plink-021",
+      "plink-022",
+      "plink-023",
+      "plink-024",
+      "plink-025",
+      "plink-026",
+      "plink-027",
+      "plink-028",
+      "plink-029",
+      "plink-030",
+      "plink-031",
+      "plink-032"
+    ],
+    "snapshot": {
+      "id": "plink-032",
+      "tick": 32,
+      "time": "T+02:40",
+      "model": "cpmm-demo-v1",
+      "x": 7343368.371306752,
+      "y": 176.1149188535711,
+      "feeBps": 30,
+      "lpIndex": 0.5800000000000001,
+      "volumeSOL": 1.1117321968954834,
+      "events": [
+        {
+          "type": "swap-buy",
+          "sol": 1.1117321968954834,
+          "note": "Simulated SOL input"
+        }
+      ],
+      "holders": [
+        {
+          "alias": "wallet-01",
+          "kind": "wallet",
+          "amount": 1094576.8542147896
+        },
+        {
+          "alias": "wallet-02",
+          "kind": "wallet",
+          "amount": 971513.9060511936
+        },
+        {
+          "alias": "wallet-03",
+          "kind": "wallet",
+          "amount": 721760.377139103
+        },
+        {
+          "alias": "wallet-04",
+          "kind": "wallet",
+          "amount": 785793.3676292764
+        },
+        {
+          "alias": "wallet-05",
+          "kind": "wallet",
+          "amount": 715989.9072887301
+        },
+        {
+          "alias": "wallet-06",
+          "kind": "wallet",
+          "amount": 612157.2259266443
+        },
+        {
+          "alias": "wallet-07",
+          "kind": "wallet",
+          "amount": 558732.9454482705
+        },
+        {
+          "alias": "wallet-08",
+          "kind": "wallet",
+          "amount": 474240.27340310096
+        },
+        {
+          "alias": "wallet-09",
+          "kind": "wallet",
+          "amount": 491198.88926643215
+        },
+        {
+          "alias": "wallet-10",
+          "kind": "wallet",
+          "amount": 377467.24115293636
+        },
+        {
+          "alias": "wallet-11",
+          "kind": "wallet",
+          "amount": 330149.87703781214
+        },
+        {
+          "alias": "wallet-12",
+          "kind": "wallet",
+          "amount": 279657.5078367279
+        },
+        {
+          "alias": "wallet-13",
+          "kind": "wallet",
+          "amount": 327085.55270677456
+        },
+        {
+          "alias": "wallet-14",
+          "kind": "wallet",
+          "amount": 293244.3000905838
+        },
+        {
+          "alias": "wallet-15",
+          "kind": "wallet",
+          "amount": 216669.537529668
+        },
+        {
+          "alias": "wallet-16",
+          "kind": "wallet",
+          "amount": 185822.73726385317
+        },
+        {
+          "alias": "wallet-17",
+          "kind": "wallet",
+          "amount": 213377.79113056662
+        },
+        {
+          "alias": "wallet-18",
+          "kind": "wallet",
+          "amount": 180643.82001336355
+        },
+        {
+          "alias": "wallet-19",
+          "kind": "wallet",
+          "amount": 165914.93197311056
+        },
+        {
+          "alias": "wallet-20",
+          "kind": "wallet",
+          "amount": 145869.94633378106
+        },
+        {
+          "alias": "wallet-21",
+          "kind": "wallet",
+          "amount": 133958.12423520116
+        },
+        {
+          "alias": "wallet-22",
+          "kind": "wallet",
+          "amount": 105960.59508445577
+        },
+        {
+          "alias": "wallet-23",
+          "kind": "wallet",
+          "amount": 102578.22688635859
+        },
+        {
+          "alias": "wallet-24",
+          "kind": "wallet",
+          "amount": 92008.40869700418
+        },
+        {
+          "alias": "wallet-25",
+          "kind": "wallet",
+          "amount": 98096.96235205767
+        },
+        {
+          "alias": "wallet-26",
+          "kind": "wallet",
+          "amount": 68586.19119734826
+        },
+        {
+          "alias": "wallet-27",
+          "kind": "wallet",
+          "amount": 79402.48075581307
+        },
+        {
+          "alias": "wallet-28",
+          "kind": "wallet",
+          "amount": 57430.83662728089
+        },
+        {
+          "alias": "wallet-29",
+          "kind": "wallet",
+          "amount": 65885.68815019961
+        },
+        {
+          "alias": "wallet-30",
+          "kind": "wallet",
+          "amount": 54225.49657756526
+        },
+        {
+          "alias": "pool-vault",
+          "kind": "pool-vault",
+          "amount": 7343368.371306752
+        },
+        {
+          "alias": "custody-demo",
+          "kind": "custody",
+          "amount": 1500000
+        }
+      ],
+      "source": "procedural-fixture"
+    },
+    "operator": {
+      "product": "Grok Bot",
+      "connection": "user-managed-file-handoff",
+      "instructionFile": "GROKBOT-OPERATOR.md"
+    },
+    "scope": "local research packet; unsigned; no transaction execution"
+  },
+  "attestation": "local content digest; unsigned; not a chain anchor"
+}

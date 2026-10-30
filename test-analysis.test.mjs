@@ -1,0 +1,18 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {generateDataset,validateDataset} from './core-fixture.mjs';
+import {analyzePool,analyzeWatchlist,casePacket} from './core-analysis.mjs';
+import {runStudy} from './core-studies.mjs';
+const data=generateDataset();
+test('the fixture is seeded and the committed file regenerates exactly',async()=>{const saved=JSON.parse(await readFile(new URL('./watchlist.json',import.meta.url),'utf8'));assert.deepEqual(saved,data);assert.notDeepEqual(generateDataset(30),data);});
+test('the replay never uses future observations',()=>{const a=analyzePool(data.pools[0],18,8);assert.ok(a.frames.every(f=>f.tick<=18));assert.equal(a.snapshot.tick,18);});
+test('a stale pool is retained but its quote and surface are withheld',()=>{const a=analyzePool(data.pools[7],32,8);assert.equal(a.snapshot.tick,30);assert.equal(a.stale,true);assert.equal(a.quote,null);assert.deepEqual(a.surface,[]);assert.ok(a.flags.some(f=>f.id==='stale-input'));});
+test('an observation within the freshness budget can be quoted',()=>assert.ok(analyzePool(data.pools[7],31,8).quote));
+test('LP removals use tagged events, not inferred reserve decline',()=>{const a=analyzePool(data.pools[0],32,8);assert.equal(a.taggedRemovals[0].tick,26);assert.ok(Math.abs(a.removedFraction-.42)<1e-12);assert.ok(a.flags.some(f=>f.id==='lp-removal'));});
+test('every finding reference resolves inside its case packet',()=>{for(const a of analyzeWatchlist(data)){const p=casePacket(a);assert.ok(p.findings.every(f=>f.sourceRefs.every(id=>p.sourceIds.includes(id))));assert.equal(p.origin,'synthetic-fixture');assert.equal(p.state,'prepared');}});
+test('the watchlist has eight independent histories',()=>{assert.equal(data.pools.length,8);assert.equal(data.pools[0].history.length,40);assert.equal(data.pools[7].history.length,31);assert.equal(validateDataset(data),true);});
+test('invalid replay and dataset parameters are rejected',()=>{assert.throws(()=>analyzePool(data.pools[0],40,8));assert.throws(()=>analyzePool(data.pools[0],32,0));assert.throws(()=>generateDataset(-1));const copy=structuredClone(data);copy.pools[0].history[1].tick=0;assert.throws(()=>validateDataset(copy));});
+test('the depth study preserves a position while changing reserves',()=>{const r=runStudy(data,{study:'depth',poolId:data.defaultPool,tick:32,ticketSOL:8,remaining:[1,.5]});assert.equal(r.rows[0].tokenAmount,r.rows[1].tokenAmount);assert.ok(r.rows[1].outputSOL<r.rows[0].outputSOL);});
+test('a study cannot bypass the stale-input quote boundary',()=>assert.throws(()=>runStudy(data,{study:'depth',poolId:'sim-bloop-sol',tick:32,ticketSOL:8,remaining:[1]})));
+test('classification sensitivity is declared and does not mutate source data',()=>{const before=structuredClone(data.pools[0].history[32].holders),r=runStudy(data,{study:'cohort',poolId:data.defaultPool,tick:32,alias:'wallet-01',newKind:'unknown'});assert.equal(r.after.count,29);assert.match(r.scope,/what-if/);assert.deepEqual(data.pools[0].history[32].holders,before);});

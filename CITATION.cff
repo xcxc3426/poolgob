@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use Poolgob, cite the software version and synthetic-data scope."
+title: "Poolgob: liquidity leaves a trail"
+type: software
+version: 0.1.0
+date-released: 2026-10-29
+authors:
+  - name: Poolgob contributors
+license: MIT
+abstract: "A local synthetic liquidity replay with single-pool exit surfaces, declared cohort concentration, source-linked findings and a user-configured Grok Bot research workflow."

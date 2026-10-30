@@ -1,0 +1,15 @@
+{
+  "schema": "poolgob/operator-pack/1",
+  "version": "0.1.0",
+  "product": "Grok Bot",
+  "operatorName": "Poolgob",
+  "operatorFile": "GROKBOT-OPERATOR.md",
+  "workflows": [
+    "GROKBOT-WATCHLIST-ROUTINE.md",
+    "GROKBOT-CASE-BRIEF.md"
+  ],
+  "input": "poolgob/case/1",
+  "output": "research-note.md",
+  "transport": "user-managed-file-handoff",
+  "note": "Project-owned metadata; not an official Grok Bot installer, SDK or configured account connection."
+}

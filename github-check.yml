@@ -1,0 +1,21 @@
+# Optional template. Install at .github/workflows/check.yml to enable GitHub Actions.
+name: Poolgob checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '24'
+      - run: npm run verify
+      - run: npm test
+      - run: npm run check

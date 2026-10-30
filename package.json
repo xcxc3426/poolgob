@@ -1,0 +1,22 @@
+{
+  "name": "poolgob",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A quiet liquidity observer for Solana's small, fast-moving pools, with replayable evidence and a Grok Bot operator pack.",
+  "license": "MIT",
+  "author": "Poolgob contributors",
+  "engines": {"node": ">=20"},
+  "scripts": {
+    "start": "node serve.mjs",
+    "demo": "node demo.mjs",
+    "data": "node generate.mjs",
+    "build": "node build.mjs",
+    "screenshots": "node capture.mjs",
+    "test": "node --test",
+    "check": "node check.mjs",
+    "verify": "node manifest.mjs --verify",
+    "studies": "node studies.mjs"
+  },
+  "keywords": ["solana", "liquidity", "poolgob", "grokbot", "market-research", "replay"]
+}
