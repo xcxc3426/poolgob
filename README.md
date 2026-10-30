@@ -1,5 +1,3 @@
-<p align="center"><img src="poolgob.png" width="180" alt="Poolgob: an original cobalt pixel goblin with long ears and a copper hood"></p>
-
 # Poolgob
 
 ### Liquidity leaves a trail.
